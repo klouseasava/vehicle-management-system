@@ -1,0 +1,26 @@
+/* Fuel.css */
+.fuel__cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.fuel__card {
+  display: flex; flex-direction: column; gap: 4px;
+  padding: 20px;
+  background: var(--vfms-surface);
+  border: 1px solid var(--vfms-border);
+  border-radius: var(--vfms-radius);
+  box-shadow: var(--vfms-shadow);
+}
+.fuel__card-icon {
+  width: 42px; height: 42px; border-radius: 11px;
+  display: flex; align-items: center; justify-content: center; margin-bottom: 6px;
+}
+.fuel__card-icon--litres { background: #e6f0fb; color: var(--st-motion); }
+.fuel__card-icon--cost { background: var(--vfms-clay-100); color: var(--vfms-clay); }
+.fuel__card-icon--forecast { background: #e4f2e9; color: var(--st-authorized); }
+.fuel__card-value { font-size: 1.6rem; font-weight: 700; line-height: 1.1; }
+.fuel__card-label { font-size: 0.82rem; color: var(--vfms-ink-3); }
+.fuel__card .card__title,
+.card__title { display: flex; align-items: center; gap: 8px; }
+.fuel__lookup { display: flex; gap: 10px; max-width: 420px; }
+.fuel__lookup .input { flex: 1; }
+.fuel__spin { animation: fuel-spin 0.8s linear infinite; }
+@keyframes fuel-spin { to { transform: rotate(360deg); } }
+@media (max-width: 900px) { .fuel__cards { grid-template-columns: 1fr; } }

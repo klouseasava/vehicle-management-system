@@ -1,0 +1,29 @@
+/* Maintenance.css */
+.maint__legend { padding: 16px 20px; }
+.maint__legend-title { font-family: var(--font-display); font-weight: 700; font-size: 0.95rem; margin-bottom: 12px; }
+.maint__legend-bands { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.maint__band {
+  display: flex; align-items: center; gap: 8px;
+  padding: 10px 12px; border-radius: var(--vfms-radius-sm);
+  font-size: 0.83rem; font-weight: 600;
+}
+.maint__band-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+.maint__band--green { background: #e4f2e9; color: var(--tier-green); }
+.maint__band--green .maint__band-dot { background: var(--tier-green); }
+.maint__band--amber { background: #fbf1d9; color: #8a6600; }
+.maint__band--amber .maint__band-dot { background: var(--tier-amber); }
+.maint__band--red { background: #fbe6e6; color: var(--tier-red); }
+.maint__band--red .maint__band-dot { background: var(--tier-red); }
+.maint__grid { display: grid; grid-template-columns: 320px 1fr; gap: 18px; align-items: start; }
+.maint__report .card__title { display: flex; align-items: center; gap: 8px; }
+.maint__sort { display: flex; align-items: center; gap: 8px; font-size: 0.82rem; color: var(--vfms-ink-2); }
+.maint__sort .select { padding: 6px 10px; font-size: 0.82rem; }
+.maint__agency { display: inline-flex; align-items: center; gap: 5px; font-weight: 600; }
+.maint__agency--flag { color: var(--st-overdue); }
+.maint__row--priority { background: #fdf1f1; }
+.maint__row--priority:hover { background: #fbe6e6; }
+.maint__notes { color: var(--vfms-ink-2); font-size: 0.82rem; max-width: 220px; }
+@media (max-width: 900px) {
+  .maint__grid { grid-template-columns: 1fr; }
+  .maint__legend-bands { grid-template-columns: 1fr; }
+}

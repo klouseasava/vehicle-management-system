@@ -1,0 +1,9 @@
+/* AddVehicle.css */
+.add-vehicle__layout {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr;
+  gap: 18px;
+  align-items: start;
+}
+.add-vehicle__side { display: flex; flex-direction: column; gap: 14px; }
+@media (max-width: 860px) { .add-vehicle__layout { grid-template-columns: 1fr; } }

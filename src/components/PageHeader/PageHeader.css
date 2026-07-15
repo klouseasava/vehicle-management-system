@@ -1,0 +1,10 @@
+/* PageHeader.css */
+.page-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+.page-header__actions { display: flex; gap: 10px; flex-wrap: wrap; }

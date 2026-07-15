@@ -1,0 +1,110 @@
+/* Sidebar.css */
+.sidebar {
+  width: 258px;
+  flex-shrink: 0;
+  background: var(--vfms-forest);
+  color: var(--vfms-on-dark);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  position: relative;
+}
+.sidebar__brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 20px 20px 16px;
+}
+.sidebar__logo {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: var(--vfms-clay);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.sidebar__brand-title {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 1.25rem;
+  letter-spacing: 0.04em;
+  display: block;
+  line-height: 1;
+}
+.sidebar__brand-sub {
+  font-size: 0.72rem;
+  color: var(--vfms-on-dark-dim);
+  letter-spacing: 0.02em;
+}
+/* Road-marking dashed strip */
+.sidebar__road {
+  height: 5px;
+  margin: 0 20px 12px;
+  border-radius: 3px;
+  background: repeating-linear-gradient(
+    90deg,
+    var(--vfms-gold) 0 16px,
+    transparent 16px 30px
+  );
+  opacity: 0.55;
+}
+.sidebar__nav {
+  flex: 1;
+  overflow-y: auto;
+  padding: 4px 12px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.sidebar__link {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 11px 14px;
+  border-radius: var(--vfms-radius-sm);
+  color: var(--vfms-on-dark-dim);
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: color 0.15s ease, background 0.15s ease;
+}
+.sidebar__link:hover { color: var(--vfms-on-dark); background: rgba(255, 255, 255, 0.05); }
+.sidebar__link--active { color: #fff; font-weight: 600; }
+.sidebar__link-icon { flex-shrink: 0; position: relative; z-index: 1; }
+.sidebar__link span { position: relative; z-index: 1; }
+.sidebar__active-bar {
+  position: absolute;
+  inset: 0;
+  border-radius: var(--vfms-radius-sm);
+  background: var(--vfms-forest-500);
+  box-shadow: inset 3px 0 0 var(--vfms-gold);
+}
+.sidebar__logout {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 8px 12px 18px;
+  padding: 11px 14px;
+  border-radius: var(--vfms-radius-sm);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: transparent;
+  color: var(--vfms-on-dark-dim);
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+.sidebar__logout:hover { color: #fff; background: rgba(198, 40, 40, 0.28); border-color: rgba(198, 40, 40, 0.5); }
+/* Mobile: slide-in drawer */
+@media (max-width: 900px) {
+  .sidebar {
+    position: fixed;
+    top: 0; left: 0; bottom: 0;
+    z-index: 700;
+    transform: translateX(-100%);
+    transition: transform 0.25s ease;
+    box-shadow: var(--vfms-shadow-lg);
+  }
+  .sidebar--open { transform: translateX(0); }
+}
