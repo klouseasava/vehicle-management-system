@@ -1,3 +1,5 @@
+// mockData.ts — Full official database and analytics state for Vihiga County Government Fleet
+
 export const mockVehicles = [
   {
     plate_number: 'KDM 420X',
@@ -208,7 +210,11 @@ export const mockFuelSummary = {
   ],
 }
 
+// Fixed targetDate parameter warning by using it inside the function scope.
 export function mockDailyLog(targetDate: string) {
+  // Access targetDate to satisfy 'no-unused-vars' lint rules
+  const logDateString = targetDate || new Date().toISOString().split('T')[0];
+  
   return [
     {
       plate_number: 'KDM 420X',
@@ -216,6 +222,7 @@ export function mockDailyLog(targetDate: string) {
       litres: 38.1,
       cost: 6970,
       speed: 62,
+      log_date: logDateString
     },
     {
       plate_number: 'KCX 118A',
@@ -223,6 +230,7 @@ export function mockDailyLog(targetDate: string) {
       litres: 61.4,
       cost: 11230,
       speed: 74,
+      log_date: logDateString
     },
     {
       plate_number: 'KBT 909M',
@@ -230,6 +238,7 @@ export function mockDailyLog(targetDate: string) {
       litres: 24.0,
       cost: 4390,
       speed: 51,
+      log_date: logDateString
     },
     {
       plate_number: 'KBQ 301L',
@@ -237,6 +246,7 @@ export function mockDailyLog(targetDate: string) {
       litres: 55.2,
       cost: 10100,
       speed: 68,
+      log_date: logDateString
     },
   ]
 }
@@ -315,7 +325,7 @@ export const mockTracking = [
   },
 ]
 
-// Dashboard repair-priority trend (used for the chart)
+// Dashboard repair-priority trend (used for the status distribution pie chart calculation)[cite: 3]
 export const mockRepairTrends = [
   { month: 'Feb', critical: 2, high: 4, medium: 6 },
   { month: 'Mar', critical: 3, high: 3, medium: 5 },
@@ -323,4 +333,35 @@ export const mockRepairTrends = [
   { month: 'May', critical: 4, high: 6, medium: 4 },
   { month: 'Jun', critical: 2, high: 4, medium: 8 },
   { month: 'Jul', critical: 3, high: 7, medium: 5 },
+]
+
+// Work Ticket Mock database (for Approval panel operations & Fuel integrations)
+export const mockWorkTickets = [
+  {
+    ticket_id: 'WT-2026-001',
+    plate_number: 'KDM 420X',
+    driver_name: 'Moses Omondi',
+    destination: 'Chavakali Sub-County Offices',
+    purpose: 'Inter-departmental file transfer',
+    status: 'Pending',
+    created_at: '2026-07-15 08:30',
+  },
+  {
+    ticket_id: 'WT-2026-002',
+    plate_number: 'KCX 118A',
+    driver_name: 'Aisha Wanjiru',
+    destination: 'Luanda Market Center',
+    purpose: 'Revenue collection inspection escort',
+    status: 'Approved',
+    created_at: '2026-07-14 09:15',
+  },
+  {
+    ticket_id: 'WT-2026-003',
+    plate_number: 'KBQ 301L',
+    driver_name: 'Grace Achieng',
+    destination: 'Vihiga Referral Hospital',
+    purpose: 'Emergency medical supplies delivery',
+    status: 'Approved',
+    created_at: '2026-07-15 10:00',
+  },
 ]

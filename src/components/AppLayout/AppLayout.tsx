@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react'
+// AppLayout.tsx — Protected layout containing responsive frames & transitions
+import { useEffect, useState } from 'react'
 import { Outlet, useLocation, useNavigate } from 'react-router-dom'
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
 import { Sidebar } from '../Sidebar/Sidebar'
@@ -7,6 +8,7 @@ import { ConfirmModal } from '../ConfirmModal/ConfirmModal'
 import { useAuth } from '../../context/AuthContext'
 import { onFallbackChange } from '../../api/client'
 import './AppLayout.css'
+
 export function AppLayout() {
   const { logout } = useAuth()
   const location = useLocation()
@@ -16,14 +18,27 @@ export function AppLayout() {
   const [usingMock, setUsingMock] = useState(false)
   const reducedMotion = useReducedMotion()
   
-  useEffect(() => onFallbackChange(setUsingMock), [])
+  // FIX 1: Safely handle the returned fallback subscription cleanup to avoid type assignment errors
+  useEffect(() => {
+    const unsubscribe = onFallbackChange(setUsingMock)
+    return () => {
+      if (typeof unsubscribe === 'function') {
+        unsubscribe()
+      }
+    }
+  }, [])
   
-  useEffect(() => setDrawerOpen(false), [location.pathname])
+  // FIX 2: Block implicit return values (booleans) by wrapping state changes in explicit statement blocks {}
+  useEffect(() => {
+    setDrawerOpen(false)
+  }, [location.pathname])
+
   function doLogout() {
     setConfirmLogout(false)
     logout()
     navigate('/login')
   }
+
   return (
     <div className="app-layout">
     
@@ -34,6 +49,7 @@ export function AppLayout() {
         />
       )}
 
+      {/* Renders the Sidebar, receiving active responsive state values */}
       <Sidebar
         open={drawerOpen}
         onNavigate={() => setDrawerOpen(false)}

@@ -1,5 +1,5 @@
 export const API_BASE_URL: string =
-  (import.meta as any).env?.VITE_API_BASE_URL || 'http://127.0.0.1:8000/api/v1'
+  (import.meta as unknown as { env?: Record<string, string> }).env?.VITE_API_BASE_URL || 'http://localhost:8000/api/v1'
 
 // The auth token is held in memory here and mirrored to sessionStorage by AuthContext.
 let authToken: string | null = null

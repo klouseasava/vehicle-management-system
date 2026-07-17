@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 // Login.tsx — auth gate. Handles login, register and the shared 6-digit OTP step.
 // Three internal steps: 'credentials' (login|register form) -> 'otp' entry -> success.
 
@@ -11,10 +11,13 @@ import { useToast } from '../../components/Toast/ToastProvider'
 import { isValidEmail, isValidWorkId } from '../../utils/format'
 import { OtpInput } from './OtpInput'
 import './Login.css'
-const HERO =
-  'https://cdn.magicpatterns.com/patterns/generated-images/734b5d3d-e7c6-4c2b-a7f2-48c462a9a260.jpg'
+
+// Slideshow images sourced from public directory
+const SLIDESHOW_IMAGES = ['/countylogo.png', '/countyoffice.png', '/map.png']
+
 type Mode = 'login' | 'register'
 type Step = 'credentials' | 'otp'
+
 export function Login() {
   const { login, timedOut, clearTimedOut } = useAuth()
   const toast = useToast()
@@ -22,12 +25,23 @@ export function Login() {
   const [mode, setMode] = useState<Mode>('login')
   const [step, setStep] = useState<Step>('credentials')
   const [submitting, setSubmitting] = useState(false)
+  const [currentImageIndex, setCurrentImageIndex] = useState(0)
+
+  // Slideshow timer
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentImageIndex((prev) => (prev === SLIDESHOW_IMAGES.length - 1 ? 0 : prev + 1))
+    }, 5000)
+    return () => clearInterval(timer)
+  }, [])
+
   // form fields
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [fullName, setFullName] = useState('')
   const [workId, setWorkId] = useState('')
   const [errors, setErrors] = useState<Record<string, string>>({})
+
   function validateCredentials(): boolean {
     const e: Record<string, string> = {}
     if (!isValidEmail(email)) e.email = 'Enter a valid email address.'
@@ -40,6 +54,7 @@ export function Login() {
     setErrors(e)
     return Object.keys(e).length === 0
   }
+
   async function handleRequestOtp(ev: React.FormEvent) {
     ev.preventDefault()
     if (!validateCredentials()) return
@@ -64,6 +79,7 @@ export function Login() {
       setSubmitting(false)
     }
   }
+
   async function handleVerify(code: string) {
     setSubmitting(true)
     try {
@@ -86,13 +102,14 @@ export function Login() {
       setSubmitting(false)
     }
   }
+
   return (
     <div className="login">
       {/* Left: brand + county road hero */}
       <div
         className="login__hero"
         style={{
-          backgroundImage: `url(${HERO})`,
+          backgroundImage: `url(${SLIDESHOW_IMAGES[currentImageIndex]})`,
         }}
       >
         <div className="login__hero-overlay" />
@@ -105,8 +122,7 @@ export function Login() {
           </div>
           <h1 className="login__hero-title">Vihiga County Fleet Management</h1>
           <p className="login__hero-sub">
-            Track vehicles, manage drivers, and keep the county moving — one
-            dashboard for the whole fleet.
+            Home of diverse landscape, culture and talent.
           </p>
         </div>
       </div>

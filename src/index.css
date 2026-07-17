@@ -1,52 +1,75 @@
+/* index.css */
 :root {
-  --vfms-forest: #1f3d2b;
-  --vfms-forest-700: #163020;
-  --vfms-forest-500: #2f5a3f;
-  --vfms-clay: #8a3b1e;
-  --vfms-clay-600: #a24728;
-  --vfms-clay-100: #f3e2da;
-  --vfms-gold: #e0a83b;
-  --vfms-signal: #ff5722;
-  --vfms-paper: #f5f0e6;
+  /* Official Vihiga County Color Palette — Adjusted for cohesive Fleet Management System (VFMS) */
+  --vfms-forest: #1976D2;          /* Primary Official Vihiga Royal Blue (from the seal's outer ring) */
+  --vfms-forest-700: #112233;      /* Deep Midnight Navy for high contrast dark elements */
+  --vfms-forest-500: #154c79;      /* Strong background Royal Blue for sidebars & solid containers */
+  
+  --vfms-clay: #D45B12;            /* Rich Clay Red/Ochre from the logo and soil motifs */
+  --vfms-clay-600: #b84f27;
+  --vfms-clay-100: #f6e6df;
+  
+  --vfms-gold: #FDD835;            /* Vibrant bright Yellow-Gold representing the inner seal ring */
+  --vfms-signal: #d32f2f;
+  --vfms-paper: #f4f7fa;           /* Premium soft blue-gray tinted prestigious off-white background */
   --vfms-surface: #ffffff;
-  --vfms-surface-2: #faf7ef;
-  --vfms-border: #e3dccb;
-  --vfms-border-strong: #d8cfbb;
-  --vfms-ink: #23281f;
-  --vfms-ink-2: #55584d;
-  --vfms-ink-3: #8a8b80;
-  --vfms-on-dark: #eef3ea;
-  --vfms-on-dark-dim: #a9bcaf;
-  --st-motion: #1e88e5;
-  --st-parked: #6b7280;
-  --st-repair: #e0a83b;
-  --st-authorized: #2e7d46;
-  --st-overdue: #c62828;
-  --st-pending: #b26a00;
-  --tier-green: #2e7d46;
-  --tier-amber: #e0a83b;
-  --tier-red: #c62828;
+  --vfms-surface-2: #e9eef4;       /* Tinted light blue surface variant */
+  --vfms-border: #d0d7de;
+  --vfms-border-strong: #b0bac5;
+  --vfms-ink: #0f172a;             /* Dark slate navy for text readability */
+  --vfms-ink-2: #475569;
+  --vfms-ink-3: #94a3b8;
+  --vfms-on-dark: #f8fafc;
+  --vfms-on-dark-dim: #cbd5e1;
+
+  /* Alert & Status States */
+  --st-motion: #1976d2;            /* Royal Blue motion state */
+  --st-parked: #5c6bc0;
+  --st-repair: #FDD835;            /* Vihiga Yellow Gold warning state */
+  --st-authorized: #2e7d32;        /* Forest green remaining for active safety green */
+  --st-overdue: #D45B12;           /* Clay Red for alert/overdue states */
+  --st-pending: #ef6c00;
+
+  --tier-green: #2e7d32;
+  --tier-amber: #FDD835;
+  --tier-red: #D45B12;
+
   --vfms-radius: 12px;
   --vfms-radius-sm: 8px;
-  --vfms-shadow: 0 1px 2px rgba(35, 40, 31, 0.06), 0 6px 20px rgba(35, 40, 31, 0.06);
-  --vfms-shadow-lg: 0 12px 40px rgba(35, 40, 31, 0.18);
+  --vfms-shadow: 0 1px 3px rgba(15, 23, 42, 0.05), 0 8px 24px rgba(15, 23, 42, 0.05);
+  --vfms-shadow-lg: 0 16px 48px rgba(15, 23, 42, 0.12);
+
   --font-display: 'Archivo', system-ui, sans-serif;
   --font-body: 'Inter', system-ui, sans-serif;
   --font-mono: 'IBM Plex Mono', ui-monospace, monospace;
 }
+
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
 html, body, #root { height: 100%; margin: 0; }
-body { font-family: var(--font-body); background: var(--vfms-paper); color: var(--vfms-ink); -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+body { 
+  font-family: var(--font-body); 
+  background: var(--vfms-paper); 
+  color: var(--vfms-ink); 
+  -webkit-font-smoothing: antialiased; 
+  text-rendering: optimizeLegibility; 
+}
 h1, h2, h3, h4, h5 { font-family: var(--font-display); margin: 0; color: var(--vfms-ink); }
 button { font-family: inherit; cursor: pointer; }
 a { color: inherit; text-decoration: none; }
 .mono { font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
-:focus-visible { outline: 3px solid var(--vfms-clay); outline-offset: 2px; border-radius: 4px; }
+:focus-visible { outline: 3px solid var(--vfms-gold); outline-offset: 2px; border-radius: 4px; }
 ::selection { background: var(--vfms-gold); color: var(--vfms-forest-700); }
+
 .vfms-scroll { scrollbar-width: thin; scrollbar-color: var(--vfms-border-strong) transparent; }
 .vfms-scroll::-webkit-scrollbar { width: 10px; height: 10px; }
 .vfms-scroll::-webkit-scrollbar-thumb { background: var(--vfms-border-strong); border: 3px solid transparent; border-radius: 20px; background-clip: content-box; }
+
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; transition-duration: 0.01ms !important; }
+  *, *::before, *::after { 
+    animation-duration: 0.01ms !important; 
+    animation-iteration-count: 1 !important; 
+    scroll-behavior: auto !important; 
+    transition-duration: 0.01ms !important; 
+  }
 }

@@ -8,18 +8,20 @@ import {
   MapPinnedIcon,
   TruckIcon,
   UsersIcon,
-  PlusSquareIcon,
+  FileTextIcon, // Used for Reports
   WrenchIcon,
   FuelIcon,
   UserCircleIcon,
   LogOutIcon,
 } from 'lucide-react'
 import './Sidebar.css'
+
 interface Props {
   open: boolean
   onNavigate: () => void
   onLogout: () => void
 }
+
 const NAV = [
   {
     to: '/dashboard',
@@ -42,9 +44,9 @@ const NAV = [
     icon: UsersIcon,
   },
   {
-    to: '/add-vehicle',
-    label: 'Add Vehicle',
-    icon: PlusSquareIcon,
+    to: '/reports', // Updated from /add-vehicle to /reports
+    label: 'Reports', // Updated label name
+    icon: FileTextIcon, // Updated icon
   },
   {
     to: '/maintenance',
@@ -53,7 +55,7 @@ const NAV = [
   },
   {
     to: '/fuel',
-    label: 'Fuel & Energy',
+    label: 'Fuel & Work Ticket', // Updated label name from Fuel & Energy
     icon: FuelIcon,
   },
   {
@@ -62,16 +64,29 @@ const NAV = [
     icon: UserCircleIcon,
   },
 ]
+
 export function Sidebar({ open, onNavigate, onLogout }: Props) {
   return (
     <aside
       className={`sidebar ${open ? 'sidebar--open' : ''}`}
       aria-label="Primary"
     >
-      <div className="sidebar__brand">
-        <div className="sidebar__logo" aria-hidden="true">
-          <TruckIcon size={22} />
-        </div>
+      <div className="sidebar__brand" style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+        {/* Referencing the public directory directly — 100% immune to Vite import analysis errors */}
+        <img 
+          src="/countylogo.png" 
+          alt="Vihiga County Government Seal" 
+          style={{ 
+            width: '42px', 
+            height: '42px', 
+            objectFit: 'contain',
+            filter: 'drop-shadow(0px 2px 4px rgba(0, 0, 0, 0.15))'
+          }} 
+          onError={(e) => {
+            // Safe fallback if you haven't moved the image to /public yet
+            e.currentTarget.style.display = 'none';
+          }}
+        />
         <div className="sidebar__brand-text">
           <span className="sidebar__brand-title">VFMS</span>
           <span className="sidebar__brand-sub">Vihiga County Fleet</span>

@@ -1,5 +1,5 @@
+// App.tsx — Provider tree, routing, and Vihiga layouts
 import React from 'react'
-// App.tsx — provider tree, routing, and auth gate for VFMS.
 import {
   BrowserRouter,
   Routes,
@@ -16,10 +16,11 @@ import { Dashboard } from './pages/Dashboard/Dashboard'
 import { Tracking } from './pages/Tracking/Tracking'
 import { FleetAssets } from './pages/FleetAssets/FleetAssets'
 import { Drivers } from './pages/Drivers/Drivers'
-import { AddVehicle } from './pages/AddVehicle/AddVehicle'
+import { Reports } from './pages/Reports/Reports' // Replacing AddVehicle
 import { Maintenance } from './pages/Maintenance/Maintenance'
-import { Fuel } from './pages/Fuel/Fuel'
+import { Fuel } from './pages/Fuel/Fuel' // Maps to Fuel & Work Tickets
 import { Profile } from './pages/Profile/Profile'
+
 function RequireAuth({ children }: { children: React.ReactNode }) {
   const { token } = useAuth()
   const location = useLocation()
@@ -35,6 +36,7 @@ function RequireAuth({ children }: { children: React.ReactNode }) {
     />
   )
 }
+
 function PublicOnly({ children }: { children: React.ReactNode }) {
   return useAuth().token ? (
     <Navigate to="/dashboard" replace />
@@ -42,6 +44,7 @@ function PublicOnly({ children }: { children: React.ReactNode }) {
     <>{children}</>
   )
 }
+
 export default function App() {
   return (
     <BrowserRouter>
@@ -68,7 +71,7 @@ export default function App() {
                 <Route path="/tracking" element={<Tracking />} />
                 <Route path="/fleet" element={<FleetAssets />} />
                 <Route path="/drivers" element={<Drivers />} />
-                <Route path="/add-vehicle" element={<AddVehicle />} />
+                <Route path="/reports" element={<Reports />} />
                 <Route path="/maintenance" element={<Maintenance />} />
                 <Route path="/fuel" element={<Fuel />} />
                 <Route path="/profile" element={<Profile />} />
@@ -81,4 +84,3 @@ export default function App() {
     </BrowserRouter>
   )
 }
-
