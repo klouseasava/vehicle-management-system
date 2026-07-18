@@ -16,9 +16,9 @@ import { Dashboard } from './pages/Dashboard/Dashboard'
 import { Tracking } from './pages/Tracking/Tracking'
 import { FleetAssets } from './pages/FleetAssets/FleetAssets'
 import { Drivers } from './pages/Drivers/Drivers'
-import { Reports } from './pages/Reports/Reports' // Replacing AddVehicle
+import { Reports } from './pages/Reports/Reports' 
 import { Maintenance } from './pages/Maintenance/Maintenance'
-import { Fuel } from './pages/Fuel/Fuel' // Maps to Fuel & Work Tickets
+import { Fuel } from './pages/Fuel/Fuel' 
 import { Profile } from './pages/Profile/Profile'
 
 function RequireAuth({ children }: { children: React.ReactNode }) {
@@ -48,38 +48,45 @@ function PublicOnly({ children }: { children: React.ReactNode }) {
 export default function App() {
   return (
     <BrowserRouter>
+      {/* 1. AuthProvider is now strictly at the absolute top level */}
       <AuthProvider>
-        <FleetDataProvider>
-          <ToastProvider>
-            <Routes>
-              <Route
-                path="/login"
-                element={
-                  <PublicOnly>
-                    <Login />
-                  </PublicOnly>
-                }
-              />
-              <Route
-                element={
-                  <RequireAuth>
+        <ToastProvider>
+          <Routes>
+            {/* Public Login Route */}
+            <Route
+              path="/login"
+              element={
+                <PublicOnly>
+                  <Login />
+                </PublicOnly>
+              }
+            />
+
+            {/* Protected Vihiga Fleet Routes */}
+            <Route
+              element={
+                <RequireAuth>
+                  {/* 2. FleetDataProvider safely wraps only authenticated components */}
+                  <FleetDataProvider>
                     <AppLayout />
-                  </RequireAuth>
-                }
-              >
-                <Route path="/dashboard" element={<Dashboard />} />
-                <Route path="/tracking" element={<Tracking />} />
-                <Route path="/fleet" element={<FleetAssets />} />
-                <Route path="/drivers" element={<Drivers />} />
-                <Route path="/reports" element={<Reports />} />
-                <Route path="/maintenance" element={<Maintenance />} />
-                <Route path="/fuel" element={<Fuel />} />
-                <Route path="/profile" element={<Profile />} />
-              </Route>
-              <Route path="*" element={<Navigate to="/dashboard" replace />} />
-            </Routes>
-          </ToastProvider>
-        </FleetDataProvider>
+                  </FleetDataProvider>
+                </RequireAuth>
+              }
+            >
+              <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/tracking" element={<Tracking />} />
+              <Route path="/fleet" element={<FleetAssets />} />
+              <Route path="/drivers" element={<Drivers />} />
+              <Route path="/reports" element={<Reports />} />
+              <Route path="/maintenance" element={<Maintenance />} />
+              <Route path="/fuel" element={<Fuel />} />
+              <Route path="/profile" element={<Profile />} />
+            </Route>
+
+            {/* Fallback Redirection */}
+            <Route path="*" element={<Navigate to="/dashboard" replace />} />
+          </Routes>
+        </ToastProvider>
       </AuthProvider>
     </BrowserRouter>
   )

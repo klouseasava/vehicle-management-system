@@ -15,6 +15,19 @@ import './Login.css'
 // Slideshow images sourced from public directory
 const SLIDESHOW_IMAGES = ['/countylogo.png', '/countyoffice.png', '/map.png']
 
+const DEPARTMENTS = [
+  'Finance and Economic Planning',
+  'Public Service, Administration and Devolution',
+  'Health Services',
+  'Education, Science and Technical Vocational Training',
+  'Agriculture, Livestock & Fisheries',
+  'Transport, Infrastructure and Public Works',
+  'Lands, Housing, Physical Planning and Urban Development',
+  'Commerce, Tourism & Cooperatives',
+  'Environment, Water, Energy, Natural Resources & Climate Change',
+  'Gender, Culture, Youth, Sports and Social Services'
+]
+
 type Mode = 'login' | 'register'
 type Step = 'credentials' | 'otp'
 
@@ -40,6 +53,7 @@ export function Login() {
   const [password, setPassword] = useState('')
   const [fullName, setFullName] = useState('')
   const [workId, setWorkId] = useState('')
+  const [department, setDepartment] = useState('')
   const [errors, setErrors] = useState<Record<string, string>>({})
 
   function validateCredentials(): boolean {
@@ -48,8 +62,8 @@ export function Login() {
     if (password.length < 4) e.password = 'Password is required.'
     if (mode === 'register') {
       if (fullName.trim().length < 2) e.fullName = 'Enter your full name.'
-      if (!isValidWorkId(workId))
-        e.workId = 'Work ID should look like VFM-1024.'
+      if (!isValidWorkId(workId)) e.workId = 'Work ID should look like VFM-1024.'
+      if (!department) e.department = 'Please select your department.'
     }
     setErrors(e)
     return Object.keys(e).length === 0
@@ -68,6 +82,7 @@ export function Login() {
           ? {
               full_name: fullName,
               work_id: workId,
+              department: department,
             }
           : {}),
       })
@@ -90,9 +105,10 @@ export function Login() {
           mode === 'register'
             ? fullName
             : email.split('@')[0].replace(/\./g, ' '),
-        role: 'Fleet Administrator',
+        role: 'Chief of Department',
         regional_office: 'Vihiga County HQ',
         work_id: workId || undefined,
+        department: department || undefined,
       })
       toast.success('Welcome to VFMS.')
       navigate('/dashboard')
@@ -206,6 +222,27 @@ export function Login() {
                         />
                         {errors.workId && (
                           <span className="field__error">{errors.workId}</span>
+                        )}
+                      </div>
+                      <div className="field">
+                        <label className="field__label" htmlFor="department">
+                          Department<span className="req">*</span>
+                        </label>
+                        <select
+                          id="department"
+                          className={`input ${errors.department ? 'input--error' : ''}`}
+                          value={department}
+                          onChange={(e) => setDepartment(e.target.value)}
+                        >
+                          <option value="">Select a Department</option>
+                          {DEPARTMENTS.map((dept) => (
+                            <option key={dept} value={dept}>
+                              {dept}
+                            </option>
+                          ))}
+                        </select>
+                        {errors.department && (
+                          <span className="field__error">{errors.department}</span>
                         )}
                       </div>
                     </>
